@@ -22,14 +22,9 @@ export function ScrollAnimate({
   threshold = 0.1,
   className = "",
 }: ScrollAnimateProps) {
-  // Check if reduced motion is requested
-  const isReducedMotion =
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (isReducedMotion) {
-    return <div className={className}>{children}</div>;
-  }
+  // Reduced-motion users are handled app-wide by <MotionConfig reducedMotion="user"> in page.tsx
+  // (transforms are skipped, opacity still fades). Branching on matchMedia during render here would
+  // make the server and first client render differ and cause a hydration mismatch.
 
   // Animation variants
   const variants: Variants = {

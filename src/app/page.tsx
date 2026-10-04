@@ -1,10 +1,12 @@
 "use client";
 
 import React from "react";
+import { MotionConfig } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { HeroSection } from "@/components/layout/HeroSection";
 import { TimelineSection } from "@/components/layout/TimelineSection";
 import { GallerySection } from "@/components/layout/GallerySection";
+import { BestGirlfriendSection } from "@/components/layout/BestGirlfriendSection";
 import { Footer } from "@/components/layout/Footer";
 import { RelationshipTimer } from "@/components/interactive/RelationshipTimer";
 import { FallingHearts } from "@/components/interactive/FallingHearts";
@@ -15,6 +17,7 @@ import { ScrollAnimate } from "@/components/ui/ScrollAnimate";
 
 export default function Home() {
   return (
+    <MotionConfig reducedMotion="user">
     <MusicProvider>
       {/* Interactive Background Canvas Layers */}
       <ParticleBackground />
@@ -41,6 +44,9 @@ export default function Home() {
 
         {/* Photo Memories Gallery Section */}
         <GallerySection />
+
+        {/* Best Girlfriend Award Finale */}
+        <BestGirlfriendSection startDate="2025-02-02" />
       </main>
 
       {/* Global Music Player Trigger */}
@@ -49,5 +55,6 @@ export default function Home() {
       {/* Footer Content */}
       <Footer />
     </MusicProvider>
+    </MotionConfig>
   );
 }

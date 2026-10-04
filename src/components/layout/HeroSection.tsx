@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { useMusic } from "@/context/MusicContext";
+import { asset } from "@/lib/asset";
 import { Heart, Play, Calendar, Image as ImageIcon, Sparkles } from "lucide-react";
 
 function HeroPhoto({ src, slot, isVideo }: { src: string; slot: string; isVideo?: boolean }) {
@@ -173,7 +174,7 @@ export function HeroSection() {
             transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
             className="absolute left-6 top-8 w-44 md:w-56 aspect-[3/4] bg-bg-secondary dark:bg-bg-secondary border border-border-custom/60 rounded-3xl p-3 shadow-xl transform rotate-[-4deg] flex flex-col justify-between"
           >
-            <HeroPhoto src="/images/hero/1.mp4" slot="Slot 01" isVideo />
+            <HeroPhoto src={asset("/images/hero/1.mp4")} slot="Slot 01" isVideo />
           </motion.div>
 
           {/* Card 2: Secondary Photo Slot (Bottom Right offset) */}
@@ -182,7 +183,7 @@ export function HeroSection() {
             transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }}
             className="absolute right-6 bottom-8 w-40 md:w-48 aspect-[1/1] bg-bg-secondary dark:bg-bg-secondary border border-border-custom/60 rounded-3xl p-3 shadow-xl transform rotate-[6deg] flex flex-col justify-between"
           >
-            <HeroPhoto src="/images/hero/2.jpeg" slot="Slot 02" />
+            <HeroPhoto src={asset("/images/hero/2.jpeg")} slot="Slot 02" />
           </motion.div>
 
           {/* Ring backdrop element */}

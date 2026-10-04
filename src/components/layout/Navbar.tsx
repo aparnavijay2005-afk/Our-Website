@@ -26,6 +26,7 @@ export function Navbar() {
     { name: "Timer", href: "#timer" },
     { name: "Our Story", href: "#story" },
     { name: "Memories", href: "#memories" },
+    { name: "Best Girlfriend", href: "#best-girlfriend" },
   ];
 
   return (

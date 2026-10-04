@@ -3,7 +3,7 @@
 import React from "react";
 import { Card } from "@/components/ui/Card";
 import { ScrollAnimate } from "@/components/ui/ScrollAnimate";
-import { Heart, MapPin, Coffee, Camera, Star } from "lucide-react";
+import { Heart, MapPin, Coffee, Camera } from "lucide-react";
 
 interface TimelineItem {
   id: string;
@@ -66,26 +66,30 @@ export function TimelineSection() {
           </p>
         </div>
 
-        {/* Timeline Path */}
-        <div className="relative border-l-2 border-primary/20 dark:border-primary/10 ml-4 md:ml-[50%] space-y-12">
+        {/* Timeline Path: a rail on the left (mobile) / centre (md+), with cards alternating sides in a 2-col grid */}
+        <div className="relative">
+          <div
+            aria-hidden="true"
+            className="absolute top-2 bottom-2 left-4 md:left-1/2 w-0.5 -translate-x-1/2 rounded-full bg-gradient-to-b from-transparent via-primary/25 to-transparent dark:via-primary/15"
+          />
+
+          <div className="space-y-10 md:space-y-14">
           {PLACEHOLDER_MILESTONES.map((item, index) => {
             const isEven = index % 2 === 0;
-            // Position classes to alternate sides on desktop
-            const alignmentClass = isEven
-              ? "md:left-[-380px] md:text-right"
-              : "md:left-[40px] md:text-left";
+            // Even cards sit in the left column (text-right), odd cards in the right column
+            const alignmentClass = isEven ? "md:text-right" : "md:col-start-2 md:text-left";
 
             return (
-              <div key={item.id} className="relative w-full min-h-[100px]">
+              <div key={item.id} className="relative pl-12 md:pl-0 md:grid md:grid-cols-2 md:gap-x-16">
                 {/* Timeline Node Icon Pin */}
-                <div className="absolute top-2 left-[-17px] bg-bg-secondary border border-border-custom shadow-md w-8 h-8 rounded-full flex items-center justify-center z-10">
+                <div className="absolute top-5 left-4 md:left-1/2 -translate-x-1/2 bg-bg-secondary border border-border-custom shadow-md w-8 h-8 rounded-full flex items-center justify-center z-10">
                   {item.icon}
                 </div>
 
                 {/* Animated Cards */}
                 <ScrollAnimate
                   preset={isEven ? "fade-right" : "fade-left"}
-                  className={`w-full md:w-[340px] ml-8 md:ml-0 md:absolute ${alignmentClass}`}
+                  className={alignmentClass}
                 >
                   <Card hoverEffect className="relative p-5 md:p-6">
                     {/* Date Badge */}
@@ -100,17 +104,15 @@ export function TimelineSection() {
                       {item.categoryPlaceholder}
                     </h4>
 
-                    <p className="text-xs text-text-secondary/90 leading-relaxed mt-3 border-t border-border-custom/25 pt-3">
+                    <p className="text-[13px] md:text-sm text-text-secondary leading-relaxed mt-3 border-t border-border-custom/25 pt-3">
                       {item.bodyPlaceholder}
                     </p>
                   </Card>
                 </ScrollAnimate>
-
-                {/* Desktop Spacer to maintain layout flow in position absolute */}
-                <div className="hidden md:block h-[220px]" />
               </div>
             );
           })}
+          </div>
         </div>
       </div>
     </section>

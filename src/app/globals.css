@@ -1,10 +1,14 @@
 @import "tailwindcss";
 
+/* Drive `dark:` utilities from the `.dark` class the theme toggle sets, not the OS preference. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --font-serif: "Playfair Display", Georgia, serif;
+  --font-serif: var(--font-playfair), "Playfair Display", Georgia, serif;
   --font-sans: var(--font-geist-sans), sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
-  
+  --font-cute: var(--font-pacifico), "Brush Script MT", cursive;
+
   --color-bg-primary: var(--bg-primary);
   --color-bg-secondary: var(--bg-secondary);
   --color-text-primary: var(--text-primary);
@@ -16,6 +20,17 @@
   
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-shimmer: shimmer 1.8s ease-in-out infinite;
+  --animate-twinkle: twinkle 2.6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 @keyframes float {
@@ -27,11 +42,22 @@
   }
 }
 
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(0.6) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15) rotate(18deg);
+  }
+}
+
 :root {
   --bg-primary: #fff8f8;      /* Soft rose-cream */
   --bg-secondary: #ffffff;    /* Card white */
-  --text-primary: #1e1b4b;    /* Deep navy plum */
-  --text-secondary: #4f46e5;  /* Indigo accent */
+  --text-primary: #3b0f2e;    /* Deep plum */
+  --text-secondary: #86335a;  /* Dusty rose-plum (7.6:1 on bg-primary) */
   --primary: #db2777;         /* Romantic Pink */
   --primary-hover: #be185d;   /* Darker Pink */
   --accent: #b45309;          /* Gold accent */
@@ -42,11 +68,17 @@
   --bg-primary: #0a050d;      /* Midnight plum */
   --bg-secondary: #120918;    /* Dark plum card background */
   --text-primary: #fdf2f8;    /* White-pink */
-  --text-secondary: #94a3b8;  /* Slate-400 */
+  --text-secondary: #c4a3b8;  /* Warm mauve (8.9:1 on bg-primary) */
   --primary: #f43f5e;         /* Vibrant rose glow */
   --primary-hover: #fda4af;   /* Hover rose */
   --accent: #fbbf24;          /* Warm gold */
   --border-custom: #2e1047;   /* Deep violet border */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {

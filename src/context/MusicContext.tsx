@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
+import { asset } from "@/lib/asset";
 
 export interface Track {
   id: string;
@@ -35,7 +36,7 @@ const PLACEHOLDER_TRACKS: Track[] = [
     id: "1",
     title: "Snooze",
     artist: "SZA",
-    url: "/audio/snooze-sza.mp3",
+    url: asset("/audio/snooze-sza.mp3"),
     duration: "3:21",
   },
 ];
@@ -121,10 +122,12 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
       audioRef.current.pause();
       setIsPlaying(false);
     } else {
-      audioRef.current.play().catch((err) => {
-        console.warn("Autoplay block: user interaction needed.", err);
-      });
       setIsPlaying(true);
+      audioRef.current.play().catch((err) => {
+        // e.g. autoplay blocked or the audio file is missing: don't show a "playing" UI with no sound
+        console.warn("Playback failed or was blocked.", err);
+        setIsPlaying(false);
+      });
     }
   };
 
